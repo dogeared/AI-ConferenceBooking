@@ -21,13 +21,7 @@ public class OldUploadController {
         var name = file.getOriginalFilename().replace(" ", "_");
         var fileNameAndPath = Paths.get(UPLOAD_DIRECTORY + File.separator + name);
 
-        var normalizedPath = fileNameAndPath.normalize();
-        if (!normalizedPath.startsWith(Paths.get(UPLOAD_DIRECTORY).normalize())) {
-            model.addAttribute("message", "ERROR");
-            return "person/upload";
-        }
-
-        Files.write(normalizedPath, file.getBytes());
+        Files.write(fileNameAndPath, file.getBytes());
         model.addAttribute("msg", "Uploaded images: " + name);
 
         if (principal == null) {
